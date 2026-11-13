@@ -1,0 +1,47 @@
+name: Verify public URL
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  live-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install playwright
+      - name: Verify live test site with mobile and desktop Chromium
+        run: python tests/live-browser.py
+      - name: Verify actual facility photos and natural dimensions
+        run: python tests/live-photos.py
+      - name: Verify continuous map selection and nonmodal panels
+        run: python tests/live-map-ux.py
+      - name: Verify desktop wheel and mobile touch gestures
+        run: python tests/map-wheel-browser.py
+      - name: Verify life facilities and supplemented coordinates
+        run: python tests/life-browser.py
+      - name: Verify default map and reviewed tourism additions
+        run: python tests/live-tourism.py
+      - run: python -m pip install zxing-cpp pillow
+      - name: Verify real public share QR and install guidance
+        run: python tests/utilities-browser.py
+        env:
+          MINAMIGO_DECODE_QR: '1'
+      - name: Verify public purpose URLs, QR filter restoration and annual events
+        run: python tests/routes-events-browser.py
+        env:
+          MINAMIGO_DECODE_QR: '1'
+      - name: Verify official guide courses and partial walkway references
+        run: python tests/guide-courses-browser.py
+        env:
+          MINAMIGO_DECODE_QR: '1'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: live-test-browser-evidence
+          path: live-evidence/
+          retention-days: 7

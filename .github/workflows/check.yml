@@ -1,0 +1,41 @@
+name: Validate public snapshot
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm test
+      - run: npm run validate
+      - run: npm run build
+      - run: python -m pip install playwright
+      - run: python tests/source-refresh-test.py
+      - run: python tests/browser.py
+      - run: python tests/datasets-browser.py
+      - run: python tests/map-browser.py
+      - run: python tests/map-wheel-browser.py --local
+      - run: python tests/media-browser.py
+      - run: python tests/photo-policy-browser.py
+      - run: python tests/shared-food-browser.py
+      - run: python tests/life-browser.py --local
+      - run: python tests/sw-update.py
+      - run: python -m pip install zxing-cpp pillow
+      - run: python tests/utilities-browser.py --local
+        env:
+          MINAMIGO_DECODE_QR: '1'
+      - run: python tests/routes-events-browser.py --local
+        env:
+          MINAMIGO_DECODE_QR: '1'
+      - run: python tests/guide-courses-browser.py --local
+        env:
+          MINAMIGO_DECODE_QR: '1'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: minamigoen-preview
+          path: dist/
+          retention-days: 7
