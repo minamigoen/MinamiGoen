@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-15T02:24:59.536Z",
+  "updatedAt": "2026-11-26T07:08:36.726Z",
   "records": [
     {
       "id": "hiwasa-winter",
@@ -476,18 +476,23 @@
     {
       "id": "minami-commerce",
       "name": "美波町商工祭",
-      "month": null,
+      "month": 12,
       "year": 2026,
-      "status": "undated",
-      "start": "",
-      "end": "",
+      "status": "published",
+      "start": "2026-12-06",
+      "end": "2026-12-06",
       "typical": "",
       "typicalSource": "",
-      "time": "",
-      "note": "開催予定との案内はありますが、日付は未定です。",
+      "time": "9:30〜14:00",
+      "note": "会場：薬王寺第三駐車場 特設会場。町回りスタンプラリー（12月6日〜20日）の応募はがきを会場で配布します。",
       "spotId": "",
-      "checkedAt": "2026-10-15",
+      "checkedAt": "2026-11-26",
       "sources": [
+        {
+          "url": "https://yakuouji-monzenmachi.com/archives/event/1169",
+          "updatedAt": "",
+          "dateKind": "更新日時未掲載"
+        },
         {
           "url": "https://r.goope.jp/tsci1400/free/minamityoibento7039445086",
           "updatedAt": "",
